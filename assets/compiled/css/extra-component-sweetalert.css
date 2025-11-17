@@ -1,0 +1,17 @@
+.swal2-input.form-control,
+.swal2-textarea.form-control,
+.swal2-select.form-control {
+	width: initial;
+}
+td.aksi {
+	white-space: nowrap;
+	width: 1%;
+} /* CSS minimal untuk memastikan navigasi hanya muncul di mobile */
+.bottom-nav {
+	display: none;
+}
+@media (max-width: 767px) {
+	.bottom-nav {
+		display: flex;
+	}
+}
