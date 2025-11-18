@@ -1,43 +1,27 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Detail RPS</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <style>
-    .card-header {
-      background: #f5f5f5;
-      font-weight: bold;
-    }
-
-    .table th,
-    .table td {
-      vertical-align: top;
-    }
-
-    .btn-xs {
-      padding: 2px 6px;
-      font-size: 12px;
-    }
-
-    .indikator-box {
-      margin-left: 15px;
-      font-size: 13px;
-    }
-  </style>
-</head>
-
-<body class="bg-light">
+<div class="page-heading">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-12 col-md-6 order-md-1 order-last">
+        <h3><?= $title; ?> : <?= $rps->KodeMK ?> – <?= $rps->NamaMK ?></h3>
+        <p class="text-subtitle text-muted">Data <?= $title; ?>.</p>
+      </div>
+      <div class="col-12 col-md-6 order-md-2 order-first">
+        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<?= base_url($this->uri->segment(1)); ?>"><?= $this->uri->segment(1); ?></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?= $this->uri->segment(2); ?></li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
 
   <div class="container-fluid mt-3">
-    <h4>Detail RPS : <?= $rps->KodeMK ?> – <?= $rps->NamaMK ?></h4>
-
     <!-- ========== CPMK / SubCPMK / Indikator ========== -->
     <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Daftar CPMK / Sub CPMK</span>
-        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addCpmkModal">+ CPMK</button>
+        <span class="fw-bold">Daftar CPMK / Sub CPMK</span>
+        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addCpmkModal"><i class="bi bi-plus-square"></i> CPMK</button>
       </div>
       <div class="card-body p-0">
         <table class="table table-bordered mb-0">
@@ -65,15 +49,15 @@
                     <?php foreach ($ind as $i): ?>
                       <div class="indikator-box">
                         • <b><?= $i->kode_indikator ?></b> <?= $i->indikator ?>
-                        <a href="<?= site_url('rps/delete_indikator/' . $i->id_indikator) ?>" class="text-danger ms-1">🗑</a>
+                        <a href="<?= site_url('rps/delete_indikator/' . $i->id_indikator) ?>" class="text-danger ms-1"><i class="bi bi-trash"></i></a>
                       </div>
                     <?php endforeach; ?>
                   <?php endif; ?>
                   <div class="mt-1">
-                    <button class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#addIndikator<?= $c->id_rps_cpmk ?>">+ IK</button>
-                    <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editCpmk<?= $c->id_rps_cpmk ?>">✏ Edit</button>
-                    <a href="<?= site_url('rps/delete_cpmk/' . $c->id_rps_cpmk) ?>" class="btn btn-danger btn-xs">🗑</a>
-                    <button class="btn btn-info btn-xs" data-bs-toggle="modal" data-bs-target="#addSub<?= $c->id_rps_cpmk ?>">+ Sub</button>
+                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addIndikator<?= $c->id_rps_cpmk ?>"><i class="bi bi-plus-square"></i> IK</button>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editCpmk<?= $c->id_rps_cpmk ?>"><i class="bi bi-pencil"></i> Edit</button>
+                    <a href="<?= site_url('rps/delete_cpmk/' . $c->id_rps_cpmk) ?>" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#addSub<?= $c->id_rps_cpmk ?>"><i class="bi bi-plus-square"></i> Sub</button>
                   </div>
                 </td>
                 <td class="text-center"><?= $c->bobot ?></td>
@@ -85,13 +69,13 @@
                     foreach ($subind as $si): ?>
                       <div class="indikator-box">
                         • <b><?= $si->kode_indikator ?></b> <?= $si->indikator ?>
-                        <a href="<?= site_url('rps/delete_indikator/' . $si->id_indikator) ?>" class="text-danger ms-1">🗑</a>
+                        <a href="<?= site_url('rps/delete_indikator/' . $si->id_indikator) ?>" class="text-danger ms-1"><i class="bi bi-trash"></i></a>
                       </div>
                     <?php endforeach; ?>
                     <div class="ms-3 mb-2">
-                      <button class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#addIndSub<?= $s->id_subcpmk ?>">+ IK</button>
-                      <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editSub<?= $s->id_subcpmk ?>">✏ Edit</button>
-                      <a href="<?= site_url('rps/delete_subcpmk/' . $s->id_subcpmk) ?>" class="btn btn-danger btn-xs">🗑</a>
+                      <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addIndSub<?= $s->id_subcpmk ?>"><i class="bi bi-plus-square"></i> IK</button>
+                      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSub<?= $s->id_subcpmk ?>"><i class="bi bi-pencil"></i> Edit</button>
+                      <a href="<?= site_url('rps/delete_subcpmk/' . $s->id_subcpmk) ?>" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                     </div>
                   <?php endforeach; ?>
                 </td>
@@ -114,133 +98,145 @@
     <!-- =========================
      MATERI PEMBELAJARAN
 ========================= -->
-    <div class="card mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Daftar Materi Pembelajaran</span>
-        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addMateriModal">+ Materi</button>
+    <div class="row">
+      <div class="col-5">
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-bold">Daftar Materi Pembelajaran</span>
+            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addMateriModal"><i class="bi bi-plus-square"></i> Materi</button>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-bordered mb-0">
+              <thead class="table-secondary text-center">
+                <tr>
+                  <th>Urutan</th>
+                  <th>Materi</th>
+                  <th width="25%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($materi as $m): ?>
+                  <tr>
+                    <td class="text-center"><?= $m->urutan ?></td>
+                    <td><?= $m->materi ?></td>
+                    <td class="text-center">
+                      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMateri<?= $m->id_materi ?>"><i class="bi bi-pencil"></i></button>
+                      <a href="<?= site_url('rps/delete_materi/' . $m->id_materi) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="card-body p-0">
-        <table class="table table-bordered mb-0">
-          <thead class="table-secondary text-center">
-            <tr>
-              <th>Urutan</th>
-              <th>Materi</th>
-              <th width="15%">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($materi as $m): ?>
-              <tr>
-                <td class="text-center"><?= $m->urutan ?></td>
-                <td><?= $m->materi ?></td>
-                <td class="text-center">
-                  <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editMateri<?= $m->id_materi ?>">✏</button>
-                  <a href="<?= site_url('rps/delete_materi/' . $m->id_materi) ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin hapus data ini?')">🗑</a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <!-- =========================
+      <!-- =========================
      DAFTAR PUSTAKA
 ========================= -->
-    <div class="card mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Daftar Pustaka</span>
-        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPustakaModal">+ Pustaka</button>
-      </div>
-      <div class="card-body p-0">
-        <table class="table table-bordered mb-0">
-          <thead class="table-secondary text-center">
-            <tr>
-              <th>Kode</th>
-              <th>Deskripsi</th>
-              <th>Jenis</th>
-              <th width="15%">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($pustaka as $p): ?>
-              <tr>
-                <td class="text-center"><?= $p->kode_pustaka ?></td>
-                <td><?= $p->pustaka ?></td>
-                <td class="text-center"><?= $p->jenis ?></td>
-                <td class="text-center">
-                  <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editPustaka<?= $p->id_pustaka ?>">✏</button>
-                  <a href="<?= site_url('rps/delete_pustaka/' . $p->id_pustaka) ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin hapus data ini?')">🗑</a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+      <div class="col-7">
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-bold">Daftar Pustaka</span>
+            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPustakaModal"><i class="bi bi-plus-square"></i> Pustaka</button>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-bordered mb-0">
+              <thead class="table-secondary text-center">
+                <tr>
+                  <th>Kode</th>
+                  <th>Deskripsi</th>
+                  <th>Jenis</th>
+                  <th width="25%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($pustaka as $p): ?>
+                  <tr>
+                    <td class="text-center"><?= $p->kode_pustaka ?></td>
+                    <td><?= $p->pustaka ?></td>
+                    <td class="text-center"><?= $p->jenis ?></td>
+                    <td class="text-center">
+                      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPustaka<?= $p->id_pustaka ?>"><i class="bi bi-pencil"></i></button>
+                      <a href="<?= site_url('rps/delete_pustaka/' . $p->id_pustaka) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
     <!-- =========================
      MEDIA PEMBELAJARAN
 ========================= -->
-    <div class="card mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Daftar Media Pembelajaran</span>
-        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addMediaModal">+ Media</button>
+    <div class="row">
+      <div class="col-5">
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-bold">Daftar Media Pembelajaran</span>
+            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addMediaModal"><i class="bi bi-plus-square"></i> Media</button>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-bordered mb-0">
+              <thead class="table-secondary text-center">
+                <tr>
+                  <th>Media</th>
+                  <th>Jenis</th>
+                  <th width="25%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($media as $m): ?>
+                  <tr>
+                    <td><?= $m->media ?></td>
+                    <td class="text-center"><?= $m->jenis ?></td>
+                    <td class="text-center">
+                      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMedia<?= $m->id_media ?>"><i class="bi bi-pencil"></i></button>
+                      <a href="<?= site_url('rps/delete_media/' . $m->id_media) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="card-body p-0">
-        <table class="table table-bordered mb-0">
-          <thead class="table-secondary text-center">
-            <tr>
-              <th>Media</th>
-              <th>Jenis</th>
-              <th width="15%">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($media as $m): ?>
-              <tr>
-                <td><?= $m->media ?></td>
-                <td class="text-center"><?= $m->jenis ?></td>
-                <td class="text-center">
-                  <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editMedia<?= $m->id_media ?>">✏</button>
-                  <a href="<?= site_url('rps/delete_media/' . $m->id_media) ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin hapus data ini?')">🗑</a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <!-- =========================
+      <!-- =========================
      BENTUK PENILAIAN
 ========================= -->
-    <div class="card mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Daftar Bentuk Penilaian</span>
-        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPenilaianModal">+ Penilaian</button>
-      </div>
-      <div class="card-body p-0">
-        <table class="table table-bordered mb-0">
-          <thead class="table-secondary text-center">
-            <tr>
-              <th>Bentuk Penilaian</th>
-              <th>Keterangan</th>
-              <th>Bobot (%)</th>
-              <th width="15%">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($penilaian as $p): ?>
-              <tr>
-                <td><?= $p->bentuk ?></td>
-                <td><?= $p->keterangan ?></td>
-                <td class="text-center"><?= $p->bobot ?></td>
-                <td class="text-center">
-                  <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editPenilaian<?= $p->id_penilaian ?>">✏</button>
-                  <a href="<?= site_url('rps/delete_penilaian/' . $p->id_penilaian) ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin hapus data ini?')">🗑</a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+      <div class="col-7">
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-bold">Daftar Bentuk Penilaian</span>
+            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPenilaianModal"><i class="bi bi-plus-square"></i> Penilaian</button>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-bordered mb-0">
+              <thead class="table-secondary text-center">
+                <tr>
+                  <th>Bentuk Penilaian</th>
+                  <th>Keterangan</th>
+                  <th>Bobot (%)</th>
+                  <th width="25%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($penilaian as $p): ?>
+                  <tr>
+                    <td><?= $p->bentuk ?></td>
+                    <td><?= $p->keterangan ?></td>
+                    <td class="text-center"><?= $p->bobot ?></td>
+                    <td class="text-center">
+                      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPenilaian<?= $p->id_penilaian ?>"><i class="bi bi-pencil"></i></button>
+                      <a href="<?= site_url('rps/delete_penilaian/' . $p->id_penilaian) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
     <!-- =========================
@@ -248,8 +244,8 @@
 ========================= -->
     <div class="card mb-5">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Daftar Pertemuan</span>
-        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPertemuanModal">+ Pertemuan</button>
+        <span class="fw-bold">Daftar Pertemuan</span>
+        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPertemuanModal"><i class="bi bi-plus-square"></i> Pertemuan</button>
       </div>
       <div class="card-body p-0">
         <table class="table table-bordered mb-0">
@@ -305,8 +301,8 @@
                 <td><?= nl2br($p->asinkronus) ?></td>
                 <td><?= nl2br($p->keterangan) ?></td>
                 <td class="text-center">
-                  <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editPertemuan<?= $p->id_pertemuan ?>">✏</button>
-                  <a href="<?= site_url('rps/delete_pertemuan/' . $p->id_pertemuan) ?>" class="btn btn-danger btn-xs" onclick="return confirm('Hapus pertemuan ini?')">🗑</a>
+                  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPertemuan<?= $p->id_pertemuan ?>"><i class="bi bi-pencil"></i></button>
+                  <a href="<?= site_url('rps/delete_pertemuan/' . $p->id_pertemuan) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus pertemuan ini?')"><i class="bi bi-trash"></i></a>
                 </td>
               </tr>
             <?php endforeach; ?>
@@ -748,7 +744,4 @@
       </div>
     </div>
   <?php endforeach; ?>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+</div>

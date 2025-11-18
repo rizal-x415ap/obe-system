@@ -36,14 +36,14 @@ class M_dosen extends CI_Model
 
     // Buat akun di tabel users (akun login)
     $user_data = [
-      'username' => $data['nidn'], // gunakan NIDN sebagai username
-      'password_hash' => password_hash($data['nidn'], PASSWORD_DEFAULT), // password default = NIDN
-      'role' => 'dosen',
+      'userid' => $data['nidn'],
+      'password' => md5($data['nidn']),
+      'role'     => 'dosen',
       'is_active' => 1
     ];
 
-    $this->db->insert('users', $user_data);
-    $users_id = $this->db->insert_id(); // ambil id user yg baru dibuat
+    $this->db->insert('login_system', $user_data);
+    $users_id = $this->db->insert_id();
 
     // Simpan data dosen & hubungkan ke akun user
     $data['users_id'] = $users_id;
@@ -55,6 +55,7 @@ class M_dosen extends CI_Model
 
 
 
+
   public function get_by_id($id)
   {
     return $this->db->get_where('dosen', ['id_dosen' => $id])->row();
@@ -62,25 +63,23 @@ class M_dosen extends CI_Model
 
   public function update($id, $data)
   {
-    // Ambil data dosen lama untuk mendapatkan users_id
     $dosen = $this->db->get_where('dosen', ['id_dosen' => $id])->row();
 
     if ($dosen) {
-      // Update tabel dosen
       $this->db->where('id_dosen', $id);
       $this->db->update('dosen', $data);
 
-      // Update juga tabel users jika NIDN diganti
       if (!empty($data['nidn'])) {
         $user_update = [
           'username' => $data['nidn'],
-          'password_hash' => password_hash($data['nidn'], PASSWORD_DEFAULT),
+          'password' => md5($data['nidn']),
         ];
-        $this->db->where('id', $dosen->users_id);
-        $this->db->update('users', $user_update);
+        $this->db->where('userid', $dosen->users_id);
+        $this->db->update('login_system', $user_update);
       }
     }
   }
+
 
 
   public function delete($id)

@@ -17,14 +17,22 @@ if (!function_exists('template')) {
       'app_name' => 'MyApp',
       'app_version' => '1.0.0',
       'user_login' => $CI->session->userdata('user'), // contoh ambil data user dari session
+      'nama_dosen' => $CI->session->userdata('nama_dosen'),
     ];
 
     // Merge data global dengan data view
     $data = array_merge($global_data, $data);
 
+    $level = $CI->session->userdata('level');
     // Load template (header, sidebar, content, footer)
     $CI->load->view('template/header', $data);
-    $CI->load->view('template/sidebar', $data);
+    if ($level === 'dosen') {
+      $CI->load->view('template/sidebar_dosen', $data);
+    } elseif ($level === 'admin') {
+      $CI->load->view('template/sidebar', $data);
+    } else {
+      $CI->load->view('template/sidebar', $data);
+    }
     $CI->load->view($view, $data);
     $CI->load->view('template/footer', $data);
   }

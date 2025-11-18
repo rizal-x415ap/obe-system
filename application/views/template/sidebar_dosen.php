@@ -51,44 +51,18 @@
           </a>
         </li>
         <li
-          class="sidebar-item <?= (in_array($this->uri->segment(1), ['fakultas', 'prodi', 'kaprodi', 'dosen', 'thnakademik_aktif'])) || $this->uri->segment(2) == 'set_kurikulum'  ? 'active' : '' ?> has-sub">
-          <a href="#" class='sidebar-link'>
-            <i class="bi bi-boxes"></i>
-            <span>Pengaturan</span>
+          class="sidebar-item  <?= ($this->uri->segment(1) == 'rps') ? 'active' : '' ?>">
+          <a href="<?php echo base_url('rps'); ?>" class='sidebar-link'>
+            <i class="bi bi-journal-text"></i>
+            <span>RPS</span>
           </a>
-          <ul class="submenu <?= $sub1 = (in_array($this->uri->segment(1), ['fakultas', 'prodi', 'kaprodi', 'dosen'])) ? 'active' : '' ?>">
-            <li class="submenu-item  <?= $sub1 ? 'active' : '' ?>">
-              <a href="<?php echo base_url('fakultas'); ?>" class="submenu-link">Data Master</a>
-            </li>
-            <li class="submenu-item  <?= ($this->uri->segment(2) == 'set_kurikulum')  ? 'active' : '' ?>">
-              <a href="<?php echo base_url('kurikulum/set_kurikulum'); ?>" class="submenu-link">Kurikulum</a>
-            </li>
-            <li class="submenu-item  <?= ($this->uri->segment(1) == 'thnakademik_aktif')  ? 'active' : '' ?>">
-              <a href="<?php echo base_url('thnakademik_aktif'); ?>" class="submenu-link">Tahun Akademik</a>
-            </li>
-          </ul>
         </li>
         <li
-          class="sidebar-item <?= in_array($this->uri->segment(1), ['bk', 'cpl', 'cpmk', 'mk', 'pemetaan', 'pl', 'rangkuman', 'rps']) || in_array($this->uri->segment(2), ['penyusunan_mk', 'mk_prasyarat', 'dosen_pengampu', 'indikator_mk']) ? 'active' : '' ?> has-sub">
-          <a href="#" class='sidebar-link'>
-            <i class="bi bi-journals"></i>
-            <span>Kurikulum</span>
+          class="sidebar-item  <?= ($this->uri->segment(1) == 'nilai') ? 'active' : '' ?>">
+          <a href="<?php echo base_url('nilai'); ?>" class='sidebar-link'>
+            <i class="bi bi-clipboard-data"></i>
+            <span>Nilai</span>
           </a>
-          <ul class="submenu <?= in_array($this->uri->segment(1), ['bk', 'cpl', 'cpmk', 'mk', 'pemetaan', 'pl', 'rangkuman']) ? 'active' : '' ?>">
-            <li class="submenu-item  <?= in_array($this->uri->segment(1), ['bk', 'cpl', 'cpmk', 'mk', 'pl']) ? 'active' : '' ?>">
-              <a href="<?php echo base_url('pl'); ?>" class="submenu-link">Data</a>
-            </li>
-            <li class="submenu-item  <?= in_array($this->uri->segment(2), ['cpl_pl', 'cpl_bk', 'bk_mk', 'cpl_mk'])  ? 'active' : '' ?>">
-              <a href="<?php echo base_url('pemetaan/cpl_pl'); ?>" class="submenu-link">Pemetaan</a>
-            </li>
-            <li class="submenu-item  <?= in_array($this->uri->segment(2), ['penyusunan_mk', 'mk_prasyarat', 'dosen_pengampu', 'indikator_mk'])    ? 'active' : '' ?>">
-              <a href="<?php echo base_url('kurikulum/penyusunan_mk'); ?>" class="submenu-link">Penyusunan</a>
-            </li>
-            <li class="submenu-item  <?= ($this->uri->segment(1) == 'rangkuman')  ? 'active' : '' ?>">
-              <a href="<?php echo base_url('rangkuman'); ?>" class="submenu-link">Rangkuman</a>
-            </li>
-
-          </ul>
         </li>
         <li class="sidebar-title">END</li>
         <li

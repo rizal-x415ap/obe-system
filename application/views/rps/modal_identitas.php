@@ -22,12 +22,11 @@
           </div>
           <div class="mb-3">
             <label>Koordinator Pengembang RPS</label>
-            <!-- <select name="koordinator" class="form-select" required>
+            <select name="koordinator" class="form-select" required>
               <?php foreach ($dosen as $d): ?>
                 <option value="<?= $d->nama_dosen ?>"><?= $d->nama_dosen ?></option>
               <?php endforeach; ?>
-            </select> -->
-            <input type="text" name="koordinator" value="<?= $dosen->nama_dosen ?> (<?= $dosen->nidn ?>)" class="form-control" readonly>
+            </select>
           </div>
           <div class="mb-3">
             <label>URL E-Learning</label>

@@ -1,75 +1,85 @@
-<!DOCTYPE html>
-<html lang="id">
+ <div class="page-heading">
+   <div class="page-title">
+     <div class="row">
+       <div class="col-12 col-md-6 order-md-1 order-last">
+         <h3><?= $title; ?></h3>
+         <p class="text-subtitle text-muted">Data <?= $title; ?>.</p>
+       </div>
+       <div class="col-12 col-md-6 order-md-2 order-first">
+         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+           <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a href="<?= base_url($this->uri->segment(1)); ?>"><?= $this->uri->segment(1); ?></a></li>
+             <li class="breadcrumb-item active" aria-current="page"><?= $this->uri->segment(2); ?></li>
+           </ol>
+         </nav>
+       </div>
+     </div>
+   </div>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Manajemen RPS</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-</head>
+   <section class="section">
+     <div class="card">
+       <div class="card-body">
+         <div class="text-center">
+           <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalIdentitas">+ Add RPS</button>
+         </div>
+         <!-- TAB 1 IDENTITAS -->
+         <div class="tab-pane fade show active" id="identitas">
+           <table id="tabelRps" class="table table-bordered table-striped">
+             <thead class="table-secondary">
+               <tr>
+                 <th>Mata Kuliah</th>
+                 <th>Deskripsi</th>
+                 <th>SKS (Teori + Praktik)</th>
+                 <th>Semester</th>
+                 <th>Koordinator</th>
+                 <th>Tanggal</th>
+                 <th>Action</th>
+               </tr>
+             </thead>
+             <tbody>
+               <?php foreach ($rps as $r): ?>
+                 <tr>
+                   <td><b><?= $r->KodeMK ?></b> - <?= $r->NamaMK ?></td>
+                   <td><?= substr($r->deskripsi, 0, 100) ?></td>
+                   <td><?= $r->sks_teori + $r->sks_praktek ?></td>
+                   <td><?= $r->semester ?></td>
+                   <td><?= $r->koordinator_pengembang ?></td>
+                   <td><?= $r->tanggal_penyusunan ?></td>
+                   <td>
+                     <a href="<?= site_url('rps/detail/' . $r->id_rps) ?>" class="btn btn-sm btn-primary">Detail</a>
+                     <a href="<?= site_url('rps/cetak/' . $r->id_rps) ?>" class="btn btn-sm btn-success">Print</a>
+                     <a href="<?= site_url('rps/delete/' . $r->id_rps) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus data ini?')">Hapus</a>
+                   </td>
+                 </tr>
+               <?php endforeach; ?>
+             </tbody>
+           </table>
+         </div>
+   </section>
 
-<body class="bg-light">
 
-  <div class="container-fluid mt-4">
-    <h4>Modul RPS</h4>
+ </div>
+ </div>
 
-    <ul class="nav nav-tabs mt-3" id="rpsTabs">
-      <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#identitas">Identitas RPS</a></li>
-      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#detail">Detail RPS</a></li>
-    </ul>
+ <?php $this->load->view('rps/modal_identitas'); ?>
 
-    <div class="tab-content mt-3">
-      <!-- TAB 1 IDENTITAS -->
-      <div class="tab-pane fade show active" id="identitas">
-        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalIdentitas">+ Add RPS</button>
-        <table id="tabelRps" class="table table-bordered table-striped">
-          <thead class="table-secondary">
-            <tr>
-              <th>Mata Kuliah</th>
-              <th>Deskripsi</th>
-              <th>SKS (Teori + Praktik)</th>
-              <th>Semester</th>
-              <th>Koordinator</th>
-              <th>Tanggal</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($rps as $r): ?>
-              <tr>
-                <td><b><?= $r->KodeMK ?></b> - <?= $r->NamaMK ?></td>
-                <td><?= substr($r->deskripsi, 0, 100) ?></td>
-                <td><?= $r->sks_teori + $r->sks_praktek ?></td>
-                <td><?= $r->semester ?></td>
-                <td><?= $r->koordinator_pengembang ?></td>
-                <td><?= $r->tanggal_penyusunan ?></td>
-                <td>
-                  <a href="<?= site_url('rps/detail/' . $r->id_rps) ?>" class="btn btn-sm btn-primary">Detail</a>
-                  <a href="<?= site_url('rps/cetak/' . $r->id_rps) ?>" class="btn btn-sm btn-success">Print</a>
-                  <a href="<?= site_url('rps/delete/' . $r->id_rps) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus data ini?')">Hapus</a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
+ <script src="<?php echo base_url('assets/'); ?>static/js/components/dark.js"></script>
+ <script src="<?php echo base_url('assets/'); ?>extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
-      <!-- TAB 2 DETAIL -->
-      <div class="tab-pane fade" id="detail">
-        <p>Pilih RPS pada tab "Identitas" untuk mengisi detail CPMK, Materi, Pustaka, Penilaian, Media, dan Pertemuan.</p>
-      </div>
-    </div>
-  </div>
+ <script src="<?php echo base_url('assets/'); ?>extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+ <script src="<?php echo base_url('assets/'); ?>extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+ <script src="<?php echo base_url('assets/'); ?>static/js/pages/datatables.js"></script>
 
-  <?php $this->load->view('rps/modal_identitas'); ?>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-  <script>
-    new DataTable('#tabelRps');
-  </script>
-</body>
+ <script src="<?php echo base_url('assets/'); ?>compiled/js/app.js"></script>
 
-</html>
+ <!-- Toast -->
+ <script src="<?php echo base_url('assets/'); ?>static/js/pages/component-toasts.js"></script>
+ <!-- Sweetalert -->
+ <script src="<?php echo base_url('assets/'); ?>extensions/sweetalert2/sweetalert2.min.js"></script>
+ <script>
+   new DataTable('#tabelRps');
+ </script>
+ </body>
+
+ </html>

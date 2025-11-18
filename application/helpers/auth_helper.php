@@ -5,7 +5,7 @@ function admin_only()
   if (!$ci->session->userdata('logged_in')) {
     redirect('login');
   }
-  if ($ci->session->userdata('role') != 'admin') {
+  if ($ci->session->userdata('level') != 'admin') {
     $ci->session->set_flashdata('error', 'Akses ditolak! Halaman ini hanya untuk admin.');
     redirect('dashboard');
   }
@@ -16,7 +16,7 @@ function dosen_only()
   if (!$ci->session->userdata('logged_in')) {
     redirect('login');
   }
-  if ($ci->session->userdata('role') != 'dosen') {
+  if ($ci->session->userdata('level') != 'dosen') {
     $ci->session->set_flashdata('error', 'Akses ditolak! Halaman ini hanya untuk admin.');
     redirect('dashboard');
   }

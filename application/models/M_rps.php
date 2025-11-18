@@ -59,14 +59,9 @@ class M_rps extends CI_Model
     return $this->db->get()->result();
   }
 
-  // public function get_dosen()
-  // {
-  //   return $this->db->get('dosen')->result();
-  // }
   public function get_dosen()
   {
-    $nidn = $this->session->userdata('nidn_dosen');
-    return $this->db->get_where('dosen', ['nidn' => $nidn])->row();
+    return $this->db->get('dosen')->result();
   }
 
   public function get_kaprodi()

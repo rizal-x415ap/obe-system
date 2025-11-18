@@ -21,7 +21,8 @@ class Rps extends CI_Controller
     $data['matakuliah'] = $this->M_rps->get_mk_susun();
     $data['dosen']      = $this->M_rps->get_dosen();
     $data['kaprodi']    = $this->M_rps->get_kaprodi();
-    $this->load->view('rps/index', $data);
+    $data['title'] = 'RPS';
+    template('rps/index', $data);
   }
 
   public function add()
@@ -54,7 +55,8 @@ class Rps extends CI_Controller
     $data['media']      = $this->M_rps->get_rps_media($id_rps);
     $data['penilaian']  = $this->M_rps->get_rps_penilaian($id_rps);
     $data['pertemuan']  = $this->M_rps->get_rps_pertemuan($id_rps);
-    $this->load->view('rps/detail', $data);
+    $data['title'] = 'Detail RPS';
+    template('rps/detail', $data);
   }
 
   /* === CPMK CRUD === */

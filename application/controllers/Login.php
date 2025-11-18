@@ -18,31 +18,35 @@ class Login extends CI_Controller
 
   public function auth()
   {
-    $username = $this->input->post('username');
+    $userid = $this->input->post('userid');
     $password = $this->input->post('password');
 
-    $user = $this->M_login->get_user_by_username($username);
+    $user = $this->M_login->get_user_by_userid($userid);
 
     if ($user) {
-      if (password_verify($password, $user->password_hash)) {
-        if ($user->is_active == 1) {
-          $id_dosen = null;
+      if (md5($password) === $user->password) {
+        if ($user->blokir == 'N') {
 
-          if ($user->role == 'dosen') {
-            $dosen = $this->M_dosen->get_by_user_id($user->id);
+          $id_dosen   = null;
+          $nidn_dosen = null;
+          $nama_dosen = null;
+
+          if ($user->level == 'dosen') {
+            $dosen = $this->M_dosen->get_by_user_id($user->userid);
             if ($dosen) {
-              $id_dosen = $dosen->id_dosen;
-              $nidn_dosen = $dosen->nidn;
+              $id_dosen    = $dosen->id_dosen;
+              $nidn_dosen  = $dosen->nidn;
+              $nama_dosen  = $dosen->nama_dosen;
             }
           }
 
           $this->session->set_userdata([
-            'user_id'   => $user->id,
-            'username'  => $user->username,
-            'role'      => $user->role,
-            'id_dosen'  => $id_dosen,
-            'nidn_dosen' => $nidn_dosen,
-            'logged_in' => TRUE
+            'userid'      => $user->userid,
+            'level'       => $user->level,
+            'id_dosen'    => $id_dosen,
+            'nidn_dosen'  => $nidn_dosen,
+            'nama_dosen'  => $nama_dosen,
+            'logged_in'   => TRUE
           ]);
 
           redirect('dashboard');
@@ -55,7 +59,7 @@ class Login extends CI_Controller
         redirect('login');
       }
     } else {
-      $this->session->set_flashdata('error', 'Username tidak ditemukan');
+      $this->session->set_flashdata('error', 'userid tidak ditemukan');
       redirect('login');
     }
   }
